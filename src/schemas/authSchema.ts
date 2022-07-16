@@ -1,8 +1,9 @@
-import joi from "joi";
+import Joi from "joi";
+import { CreateUser } from "../services/userService.js";
 
-const authSchema = joi.object({
-    email: joi.string().required(),
-    password: joi.string().required()
+const userSchema = Joi.object<CreateUser>({
+    email: Joi.string().required(),
+    password: Joi.string().required()
 })
 
-export default authSchema;
+export default userSchema;
