@@ -28,6 +28,7 @@ model Credentials {
   userId    Int     @unique
   title     String  @unique
   url       String
+  username  String
   password  String
 
   @@map("credentials")
