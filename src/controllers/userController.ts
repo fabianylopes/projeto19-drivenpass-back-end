@@ -1,13 +1,13 @@
 import { Request, Response } from "express";
 
-import * as authService from "../services/userService.js"
+import * as userService from "../services/userService.js"
 
 export async function signUp(req: Request, res: Response){
     const user = req.body;
 
     
 
-    await authService.signUp(user);
+    await userService.signUp(user);
 
     res.sendStatus(201);
 }
@@ -15,7 +15,7 @@ export async function signUp(req: Request, res: Response){
 export async function signIn(req: Request, res: Response){
     const user = req.body;
 
-    const token = await authService.signIn(user);
+    const token = await userService.signIn(user);
 
     res.send(token);
 }
