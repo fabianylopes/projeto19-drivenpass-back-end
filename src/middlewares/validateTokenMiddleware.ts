@@ -1,8 +1,9 @@
 import { Request, Response, NextFunction } from "express";
-import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
-import { findById } from "../repositories/userRepository.js";
+import dotenv from "dotenv";
 dotenv.config();
+
+import { findById } from "../repositories/userRepository.js";
 
 export async function validateTokenMiddleware(req: Request, res: Response, next: NextFunction) {
     
@@ -14,14 +15,14 @@ export async function validateTokenMiddleware(req: Request, res: Response, next:
 
     try {
 
-    const secretKey = process.env.JWT_SECRET;
-    const { userId } = jwt.verify(token, secretKey) as { userId: number };
+        const secretKey = process.env.JWT_SECRET;
+        const userToken = jwt.verify(token, secretKey);
 
-    const user = await findById(userId);
-    if(!user) throw { type: "unauthorized", message: "Invalid token" }
+        const { userId } = userToken as { userId: number };
+        const user = await findById(userId);
+        if(!user) throw { type: "unauthorized", message: "Invalid token" }
 
-        res.locals.user = user;
-        
+        res.locals.userToken = userToken;     
         next();
     } catch {
         throw { type: "unauthorized", message: "Invalid token" }
