@@ -1,5 +1,6 @@
 import Joi from "joi";
 
+//import { Credentials } from "@prisma/client";
 import { CreateCredential } from "../services/credentialService.js";
 
 const credentialSchema = Joi.object<CreateCredential>({
