@@ -17,6 +17,6 @@ export function errorHandlerMiddleware(
 
 function errorTypeToStatusCode(type: string) {
     if (type === "unauthorized") return 401;
-    //if (type === "not-found") return 404;
+    if (type === "not found") return 404;
     if (type === "conflict") return 409;
 }

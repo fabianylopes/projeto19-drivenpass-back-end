@@ -17,6 +17,18 @@ export async function create(createCredential: CreateCredential) {
     await credentialRepository.create(createCredential); 
 }
 
+export async function get(userId: number) {
+    return credentialRepository.findById(userId);
+}
+
+export async function getById(id: number) {
+    const credential = credentialRepository.findById(id);
+    if(!credential) throw { type: "not found", message: "Credential not found" }
+
+    return credential;
+}
+
+
 /* export async function deleteById(createCredential: CreateCredential) {
     const { id } = createCredential;
 
