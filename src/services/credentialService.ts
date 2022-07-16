@@ -1,9 +1,6 @@
-import { Credentials } from "@prisma/client";
-
+import { CreateCredential } from "../repositories/credentialRepository.js"
 import * as credentialRepository from "../repositories/credentialRepository.js"
 import { encrypt } from "../utils/cryptrData.js";
-
-export type CreateCredential = Omit<Credentials, "id">;
 
 export async function create(createCredential: CreateCredential) {
     const { title, password } = createCredential;

@@ -1,5 +1,7 @@
 import { prisma } from "../config/db.js";
-import { CreateCredential } from "../services/credentialService.js";
+import { Credentials } from "@prisma/client";
+
+export type CreateCredential = Omit<Credentials, "id">;
 
 export async function create(createCredential: CreateCredential) {
     return prisma.credentials.create({

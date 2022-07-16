@@ -1,5 +1,7 @@
 import { prisma } from "../config/db.js";
-import { CreateNote } from "../services/notesService.js";
+import { SecureNotes } from "@prisma/client";
+
+export type CreateNote = Omit<SecureNotes, "id">;
 
 export async function create(createNote: CreateNote) {
     return prisma.secureNotes.create({

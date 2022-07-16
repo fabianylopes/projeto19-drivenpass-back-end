@@ -1,7 +1,6 @@
 import Joi from "joi";
 
-//import { Users } from "@prisma/client";
-import { CreateUser } from "../services/userService.js";
+import { CreateUser } from "../repositories/userRepository.js";
 
 const userSchema = Joi.object<CreateUser>({
     email: Joi.string().required(),

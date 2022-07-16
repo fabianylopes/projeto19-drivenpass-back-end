@@ -1,5 +1,7 @@
+import { Users } from "@prisma/client";
 import { prisma } from "../config/db.js";
-import { CreateUser } from "../services/userService.js";
+
+export type CreateUser = Omit<Users, "id">;
 
 export async function createUser(createUser: CreateUser) {
     return prisma.users.create({

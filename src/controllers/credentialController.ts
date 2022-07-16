@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-import { CreateCredential } from "../services/credentialService.js";
+import { CreateCredential } from "../repositories/credentialRepository.js"
 import * as credentialService from "../services/credentialService.js"
 
 export async function create(req: Request, res: Response) {

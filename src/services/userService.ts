@@ -3,11 +3,8 @@ import jwt from 'jsonwebtoken';
 import dotenv from "dotenv";
 dotenv.config();
 
-import { Users } from "@prisma/client";
-
+import { CreateUser } from "../repositories/userRepository.js";
 import * as userRepository from "../repositories/userRepository.js"
-
-export type CreateUser = Omit<Users, "id">;
 
 export async function signUp(createUser: CreateUser) {
     const { email, password } = createUser;

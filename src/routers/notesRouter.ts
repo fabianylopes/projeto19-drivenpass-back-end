@@ -8,7 +8,7 @@ import { validateSchemaMiddleware } from "../middlewares/validateSchemaMiddlewar
 const notesRouter = Router();
 
 notesRouter.use(validateTokenMiddleware);
-notesRouter.post('/note', validateSchemaMiddleware(notesSchema) ,notesController.create);
+notesRouter.post('/note', validateSchemaMiddleware(notesSchema), notesController.create);
 notesRouter.get('/note', notesController.get);
 notesRouter.get('/note/:id', notesController.getById);
 notesRouter.delete('/note/:id',notesController.deleteById);

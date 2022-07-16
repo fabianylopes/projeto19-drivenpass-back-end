@@ -1,7 +1,6 @@
 import Joi from "joi";
 
-//import { SecureNotes } from "@prisma/client";
-import { CreateNote } from "../services/notesService.js";
+import { CreateNote } from "../repositories/notesRepository.js";
 
 const notesSchema = Joi.object<CreateNote>({
     title: Joi.string().max(50).required(),

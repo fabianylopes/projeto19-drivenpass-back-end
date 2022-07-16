@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-import { CreateNote } from "../services/notesService.js";
+import { CreateNote } from "../repositories/notesRepository.js";
 import * as notesService from "../services/notesService.js"
 
 export async function create(req: Request, res: Response) {

@@ -1,8 +1,5 @@
-import { SecureNotes } from "@prisma/client";
-
+import { CreateNote } from "../repositories/notesRepository.js";
 import * as notesRepository from "../repositories/notesRepository.js"
-
-export type CreateNote = Omit<SecureNotes, "id">;
 
 export async function create(createNote: CreateNote) {
     const { title } = createNote;
