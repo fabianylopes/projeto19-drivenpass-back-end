@@ -28,9 +28,9 @@ export async function getById(id: number) {
     return credential;
 }
 
+export async function deleteById(id: number) {
+    const credential = credentialRepository.deleteById(id)
+    if(!credential) throw { type: "not found", message: "Credential not found" }
 
-/* export async function deleteById(createCredential: CreateCredential) {
-    const { id } = createCredential;
-
-    await credentialRepository.deleteById(id);
-} */
+    return credential;
+}

@@ -11,6 +11,6 @@ credentialRouter.use(validateTokenMiddleware);
 credentialRouter.post('/credential', validateSchemaMiddleware(credentialSchema) ,credentialController.create);
 credentialRouter.get('/credential', credentialController.get);
 credentialRouter.get('/credential/:id', credentialController.getById);
-credentialRouter.delete('/credential/:id');
+credentialRouter.delete('/credential/:id',credentialController.deleteById);
 
 export default credentialRouter;
