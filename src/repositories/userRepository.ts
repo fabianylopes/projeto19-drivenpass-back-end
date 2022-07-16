@@ -1,9 +1,9 @@
 import { prisma } from "../config/db.js";
 import { CreateUser } from "../services/userService.js";
 
-export async function createUser(CreateUser: CreateUser) {
+export async function createUser(createUser: CreateUser) {
     return prisma.users.create({
-        data: CreateUser,
+        data: createUser,
     });
 }
 
