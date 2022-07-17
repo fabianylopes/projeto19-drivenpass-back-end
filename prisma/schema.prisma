@@ -10,14 +10,15 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
 model Users {
-  id        Int     @id @default(autoincrement())
-  email     String  @unique
-  password  String
+  id          Int     @id @default(autoincrement())
+  email       String  @unique
+  password    String
   credentials Credentials[]
   secureNotes SecureNotes[]
-  cards Cards[]
-  wifi Wifi[]
+  cards       Cards[]
+  wifi        Wifi[]
 
   @@map("users")
 }
@@ -25,31 +26,29 @@ model Users {
 model Credentials {
   id        Int     @id @default(autoincrement())
   user      Users   @relation(fields: [userId], references: [id])
-  userId    Int     
-  title     String  
-  url       String
+  userId    Int     @unique
+  title     String  @unique
   username  String
+  url       String
   password  String
 
-  @@unique([userId, title])
   @@map("credentials")
 }
 
 model SecureNotes {
   id      Int     @id @default(autoincrement())
   user    Users   @relation(fields: [userId], references: [id])
-  userId  Int     
-  title   String  
+  userId  Int     @unique
+  title   String  @unique
   note    String
 
-  @@unique([userId, title])
   @@map("secureNotes")
 }
 
 model Cards {
   id             Int      @id @default(autoincrement())
   user           Users    @relation(fields: [userId], references: [id])
-  userId         Int      
+  userId         Int      @unique
   number         String
   name           String
   cvv            String
@@ -57,20 +56,18 @@ model Cards {
   password       String
   isVirtual      Boolean  @default(false)
   type           String
-  title          String   
+  title          String   @unique
 
-  @@unique([userId, title])
   @@map("cards")
 }
 
 model Wifi {
   id        Int     @id @default(autoincrement())
   user      Users   @relation(fields: [userId], references: [id])
-  userId    Int     
+  userId    Int     @unique
   name      String
   password  String
-  title     String  
+  title     String  @unique
 
-  @@unique([userId, title])
   @@map("wifi")
 }

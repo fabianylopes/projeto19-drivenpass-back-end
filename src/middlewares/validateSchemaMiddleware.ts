@@ -3,10 +3,10 @@ import { ObjectSchema } from "joi";
 
 export function validateSchemaMiddleware(schema: ObjectSchema){
     return (req: Request, res: Response, next: NextFunction) => {
-        const validation = schema.validate(req.body);
-        if(validation.error) {
-            return res.status(422).send(validation.error);
+        const { error } = schema.validate(req.body, { abortEarly: false });
+        if(error) {
+            return res.status(422).send(error.details.map((detail) => detail.message));
         }
         next();
-    }
+    };
 }

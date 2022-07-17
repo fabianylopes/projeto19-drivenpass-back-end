@@ -13,6 +13,7 @@ CREATE TABLE "credentials" (
     "userId" INTEGER NOT NULL,
     "title" TEXT NOT NULL,
     "url" TEXT NOT NULL,
+    "username" TEXT NOT NULL,
     "password" TEXT NOT NULL,
 
     CONSTRAINT "credentials_pkey" PRIMARY KEY ("id")
@@ -59,28 +60,16 @@ CREATE TABLE "wifi" (
 CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "credentials_userId_key" ON "credentials"("userId");
+CREATE UNIQUE INDEX "credentials_userId_title_key" ON "credentials"("userId", "title");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "credentials_title_key" ON "credentials"("title");
+CREATE UNIQUE INDEX "secureNotes_userId_title_key" ON "secureNotes"("userId", "title");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "secureNotes_userId_key" ON "secureNotes"("userId");
+CREATE UNIQUE INDEX "cards_userId_title_key" ON "cards"("userId", "title");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "secureNotes_title_key" ON "secureNotes"("title");
-
--- CreateIndex
-CREATE UNIQUE INDEX "cards_userId_key" ON "cards"("userId");
-
--- CreateIndex
-CREATE UNIQUE INDEX "cards_title_key" ON "cards"("title");
-
--- CreateIndex
-CREATE UNIQUE INDEX "wifi_userId_key" ON "wifi"("userId");
-
--- CreateIndex
-CREATE UNIQUE INDEX "wifi_title_key" ON "wifi"("title");
+CREATE UNIQUE INDEX "wifi_userId_title_key" ON "wifi"("userId", "title");
 
 -- AddForeignKey
 ALTER TABLE "credentials" ADD CONSTRAINT "credentials_userId_fkey" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

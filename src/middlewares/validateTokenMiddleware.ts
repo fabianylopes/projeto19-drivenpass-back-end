@@ -6,7 +6,7 @@ dotenv.config();
 import { findById } from "../repositories/userRepository.js";
 
 export async function validateTokenMiddleware(req: Request, res: Response, next: NextFunction) {
-    
+
     const authorization = req.headers["authorization"];
     if(!authorization) throw { type: "unauthorized", message: "Invalid token" }
 
