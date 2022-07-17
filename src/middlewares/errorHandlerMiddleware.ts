@@ -9,6 +9,7 @@ export default function errorHandlerMiddleware(
     console.log(error);
 
     if(error.type) {
+        console.log(error.type)
         return res.status(errorTypeToStatusCode(error.type)).send(error.type)
     }
 

@@ -19,6 +19,7 @@ model Users {
   secureNotes SecureNotes[]
   cards       Cards[]
   wifi        Wifi[]
+  documents   Document[]
 
   @@map("users")
 }
@@ -70,4 +71,18 @@ model Wifi {
   title     String  @unique
 
   @@map("wifi")
+}
+
+model Document {
+    id              Int     @id @default(autoincrement())
+    user            Users   @relation(fields: [userId], references: [id])
+    userId          Int     @unique
+    type            String
+    fullName        String
+    issueDate       String
+    expirationDate  String
+    registryNumber  String  @unique
+    issuingAgency   String
+
+    @@map("documents")
 }
