@@ -4,7 +4,7 @@ import { CreateNote } from "../repositories/notesRepository.js";
 import * as notesService from "../services/notesService.js"
 
 export async function create(req: Request, res: Response) {
-    const userId: number = res.locals.tokenData.userId;
+    const userId: number = res.locals.userToken.userId;
     
     const secureNote: CreateNote = req.body;
 
