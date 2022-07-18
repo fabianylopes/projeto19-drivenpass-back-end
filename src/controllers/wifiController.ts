@@ -5,7 +5,6 @@ import * as wifiService from "../services/wifiService.js"
 
 export async function create(req: Request, res: Response) {
     const userId: number = res.locals.userToken.userId;
-    
     const wifi: CreateWifi = req.body;
 
     await wifiService.create({...wifi, userId});
@@ -30,9 +29,10 @@ export async function getById(req: Request, res: Response) {
 }
 
 export async function deleteById(req: Request, res: Response) {
+    const userId: number = res.locals.userToken.userId;
     const id: number = parseInt(req.params.id);
 
-    const wifi = await wifiService.deleteById(id);
+    await wifiService.deleteById(id, userId);
 
-    res.send(wifi);
+    res.sendStatus(200);
 }

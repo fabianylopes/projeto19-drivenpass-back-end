@@ -4,7 +4,6 @@ import { prisma } from "../config/db.js";
 export type CreateUser = Omit<Users, "id">;
 
 export async function createUser(createUser: CreateUser) {
-    console.log('repository')
     return prisma.users.create({
         data: createUser,
     });

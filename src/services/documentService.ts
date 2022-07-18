@@ -17,13 +17,15 @@ export async function get(userId: number) {
 export async function getById(id: number, userId: number) {
     const document = await documentRepository.findById(id);
     if(!document) throw { type: "not found", message: "document not found" }
-    if(document.userId !== userId) throw { type: "unauthorized", message: "Credential belongs to another user" }
+    if(document.userId !== userId) throw { type: "unauthorized", message: "Document belongs to another user" }
+    
     return document;
 }
 
-export async function deleteById(id: number) {
+export async function deleteById(id: number, userId: number) {
     const document = await documentRepository.deleteById(id)
-    if(!document) throw { type: "not found", message: "document not found" }
 
-    return document;
+    if(!document) throw { type: "not found", message: "document not found" }
+    if(document.userId !== userId) throw { type: "unauthorized", message: "Document belongs to another user" }
+    
 }

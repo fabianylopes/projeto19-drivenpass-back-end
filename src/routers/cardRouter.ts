@@ -1,9 +1,9 @@
 import { Router } from "express";
 
-import { validateSchemaMiddleware } from "../middlewares/validateSchemaMiddleware.js";
-import { validateTokenMiddleware } from "../middlewares/validateTokenMiddleware.js";
-import cardSchema from "../schemas/cardSchema.js";
 import * as cardController from "../controllers/cardController.js";
+import { validateTokenMiddleware } from "../middlewares/validateTokenMiddleware.js";
+import { validateSchemaMiddleware } from "../middlewares/validateSchemaMiddleware.js";
+import cardSchema from "../schemas/cardSchema.js";
 
 const cardRouter = Router();
 

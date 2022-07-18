@@ -1,6 +1,6 @@
 import { CreateWifi } from "../repositories/wifiRepository.js"; 
 import * as wifiRepository from "../repositories/wifiRepository.js"
-import { encrypt } from "../utils/cryptrData.js";
+import { encrypt, decrypt } from "../utils/cryptrData.js";
 
 export async function create(createWifi: CreateWifi) {
     const { title, password } = createWifi;
@@ -15,20 +15,27 @@ export async function create(createWifi: CreateWifi) {
 }
 
 export async function get(userId: number) {
-    return wifiRepository.findAll(userId);
+    const wifi = await wifiRepository.findAll(userId);
+
+    wifi.forEach(w => w.password = decrypt(w.password));
+
+    return wifi;
 }
 
 export async function getById(id: number, userId: number) {
     const wifi = await wifiRepository.findById(id);
     if(!wifi) throw { type: "not found", message: "net not found" }
-    if(wifi.userId !== userId) throw { type: "unauthorized", message: "Credential belongs to another user" }
+    if(wifi.userId !== userId) throw { type: "unauthorized", message: "Wifi belongs to another user" }
+
+    const decryptedPassword = decrypt(wifi.password);
+    wifi.password = decryptedPassword;
 
     return wifi;
 }
 
-export async function deleteById(id: number) {
-    const wifi = await wifiRepository.deleteById(id)
-    if(!wifi) throw { type: "not found", message: "net not found" }
+export async function deleteById(id: number, userId: number) {
+    const wifi = await wifiRepository.deleteById(id);
 
-    return wifi;
+    if(!wifi) throw { type: "not found", message: "net not found" }
+    if(wifi.userId !== userId) throw { type: "unauthorized", message: "Wifi belongs to another user" }
 }

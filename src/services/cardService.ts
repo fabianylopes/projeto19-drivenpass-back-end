@@ -1,6 +1,6 @@
 import { CreateCard } from "../repositories/cardRepository.js";
 import * as cardRepository from "../repositories/cardRepository.js"
-import { encrypt } from "../utils/cryptrData.js";
+import { encrypt, decrypt } from "../utils/cryptrData.js";
 
 export async function create(createCard: CreateCard) {
     const { title, password } = createCard;
@@ -15,20 +15,27 @@ export async function create(createCard: CreateCard) {
 }
 
 export async function get(userId: number) {
-    return cardRepository.findAll(userId);
+    const card = await cardRepository.findAll(userId);
+
+    card.forEach(c => c.password = decrypt(c.password));
+
+    return card;
 }
 
 export async function getById(id: number, userId:number) {
     const card = await cardRepository.findById(id);
     if(!card) throw { type: "not found", message: "card not found" }
-    if(card.userId !== userId) throw { type: "unauthorized", message: "Credential belongs to another user" }
+    if(card.userId !== userId) throw { type: "unauthorized", message: "Card belongs to another user" }
+
+    const decryptedPassword = decrypt(card.password);
+    card.password = decryptedPassword;
 
     return card;
 }
 
-export async function deleteById(id: number) {
-    const card = await cardRepository.deleteById(id)
-    if(!card) throw { type: "not found", message: "card not found" }
+export async function deleteById(id: number, userId: number) {
+    const card = await cardRepository.deleteById(id);
 
-    return card;
+    if(!card) throw { type: "not found", message: "card not found" }
+    if(card.userId !== userId) throw { type: "unauthorized", message: "Card belongs to another user" }
 }

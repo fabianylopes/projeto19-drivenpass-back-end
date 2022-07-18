@@ -15,7 +15,11 @@ export async function create(createCredential: CreateCredential) {
 }
 
 export async function get(userId: number) {
-    return credentialRepository.findAll(userId);
+    const credentials = await credentialRepository.findAll(userId);
+
+    credentials.forEach(c => c.password = decrypt(c.password));
+
+    return credentials;
 }
 
 export async function getById(id: number, userId: number) {
@@ -29,9 +33,9 @@ export async function getById(id: number, userId: number) {
     return credential;
 }
 
-export async function deleteById(id: number) {
-    const credential = await credentialRepository.deleteById(id)
+export async function deleteById(id: number, userId: number) {
+    const credential = await credentialRepository.deleteById(id);
+    
     if(!credential) throw { type: "not found", message: "Credential not found" }
-
-    return credential;
+    if(credential.userId !== userId) throw { type: "unauthorized", message: "Credential belongs to another user" }
 }

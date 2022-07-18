@@ -26,7 +26,7 @@ export async function findAll(userId: number) {
             id: true,
             title: true,
         } 
-    })
+    });
 }
 
 export async function findById(id: number) {

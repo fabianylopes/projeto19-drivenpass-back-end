@@ -1,8 +1,8 @@
 import { Router } from "express";
 
+import * as notesController from "../controllers/notesController.js"
 import { validateTokenMiddleware } from "../middlewares/validateTokenMiddleware.js";
 import { validateSchemaMiddleware } from "../middlewares/validateSchemaMiddleware.js";
-import * as notesController from "../controllers/notesController.js"
 import notesSchema from "../schemas/notesSchema.js";
 
 const notesRouter = Router();

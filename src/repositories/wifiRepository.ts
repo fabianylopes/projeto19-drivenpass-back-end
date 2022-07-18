@@ -25,6 +25,7 @@ export async function findAll(userId: number) {
         select:{
             id: true,
             title: true,
+            password: true
         } 
     })
 }
@@ -33,7 +34,8 @@ export async function findById(id: number) {
     return prisma.wifi.findUnique({
         where: {
             id,
-        }
+        },
+        
     });
 }
 

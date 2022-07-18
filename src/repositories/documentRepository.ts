@@ -1,4 +1,4 @@
-import { prisma } from "../config/db";
+import { prisma } from "../config/db.js";
 import { Documents } from "@prisma/client";
 
 export type CreateDocument = Omit<Documents, "id">

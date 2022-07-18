@@ -4,7 +4,6 @@ import * as documentService from "../services/documentService.js"
 
 export async function create(req: Request, res: Response) {
     const userId: number = res.locals.userToken.userId;
-
     const body: CreateDocument = req.body;
 
     await documentService.create({ ...body, userId});
@@ -29,9 +28,10 @@ export async function getById(req: Request, res: Response) {
 }
 
 export async function deleteById(req: Request, res: Response) {
+    const userId: number = res.locals.userToken.userId;
     const id: number = parseInt(req.params.id);
 
-    const document = await documentService.deleteById(id);
+    await documentService.deleteById(id,userId);
 
-    res.send(document);
+    res.sendStatus(200);
 }

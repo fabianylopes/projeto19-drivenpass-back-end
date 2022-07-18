@@ -25,6 +25,7 @@ export async function findAll(userId: number) {
         select:{
             id: true,
             title: true,
+            password: true,
         } 
     })
 }

@@ -29,9 +29,10 @@ export async function getById(req: Request, res: Response) {
 }
 
 export async function deleteById(req: Request, res: Response) {
+    const userId: number = res.locals.userToken.userId;
     const id: number = parseInt(req.params.id);
 
-    const credential = await credentialService.deleteById(id);
+    await credentialService.deleteById(id, userId);
 
-    res.send(credential);
+    res.sendStatus(200);
 }

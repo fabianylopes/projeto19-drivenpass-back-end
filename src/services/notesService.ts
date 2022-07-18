@@ -17,14 +17,14 @@ export async function get(userId: number) {
 export async function getById(id: number, userId: number) {
     const note = await notesRepository.findById(id);
     if(!note) throw { type: "not found", message: "note not found" }
-    if(note.userId !== userId) throw { type: "unauthorized", message: "Credential belongs to another user" }
+    if(note.userId !== userId) throw { type: "unauthorized", message: "Note belongs to another user" }
 
     return note;
 }
 
-export async function deleteById(id: number) {
-    const note = await notesRepository.deleteById(id)
-    if(!note) throw { type: "not found", message: "note not found" }
+export async function deleteById(id: number, userId: number) {
+    const note = await notesRepository.deleteById(id);
 
-    return note;
+    if(!note) throw { type: "not found", message: "note not found" }
+    if(note.userId !== userId) throw { type: "unauthorized", message: "Note belongs to another user" }
 }
