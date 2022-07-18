@@ -7,7 +7,8 @@ const documentSchema = Joi.object<CreateDocument>({
     issueDate: Joi.string().required().pattern(/^\d{2}[\/]\d{2}[\/]\d{2}$/),
     expirationDate: Joi.string().required().pattern(/^\d{2}[\/]\d{2}$/),
     registryNumber: Joi.string().required(),
-    issuingAgency:Joi.string().required()
+    issuingAgency:Joi.string().required(),
+    title: Joi.string().required()
 });
 
 export default documentSchema;

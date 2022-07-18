@@ -5,29 +5,26 @@ import * as notesService from "../services/notesService.js"
 
 export async function create(req: Request, res: Response) {
     const userId: number = res.locals.userToken.userId;
-    
     const secureNote: CreateNote = req.body;
 
     await notesService.create({...secureNote, userId});
-
-    console.log('Notes=>' + secureNote)
 
     res.sendStatus(201);
 }
 
 export async function get(req: Request, res: Response) {
-    const { userId } = res.locals.userToken;
+    const userId: number = res.locals.userToken.userId;
     const notes = await notesService.get(userId)
 
     res.send(notes);
 }
 
 export async function getById(req: Request, res: Response) {
-    //const userId: number = res.locals.userToken.userId;
+    const userId: number = res.locals.userToken.userId;
     const id: number = parseInt(req.params.id);
 
-    const note = await notesService.getById(id)
-
+    const note = await notesService.getById(id, userId)
+    
     res.send(note);
 }
 

@@ -1,6 +1,6 @@
 import { CreateCredential } from "../repositories/credentialRepository.js"
 import * as credentialRepository from "../repositories/credentialRepository.js"
-import { encrypt } from "../utils/cryptrData.js";
+import { decrypt, encrypt } from "../utils/cryptrData.js";
 
 export async function create(createCredential: CreateCredential) {
     const { title, password } = createCredential;
@@ -18,15 +18,19 @@ export async function get(userId: number) {
     return credentialRepository.findAll(userId);
 }
 
-export async function getById(id: number) {
-    const credential = credentialRepository.findById(id);
+export async function getById(id: number, userId: number) {
+    const credential = await credentialRepository.findById(id);
     if(!credential) throw { type: "not found", message: "Credential not found" }
-   
+    if(credential.userId !== userId) throw { type: "unauthorized", message: "Credential belongs to another user" }
+    
+    const decryptedPassword = decrypt(credential.password);
+    credential.password = decryptedPassword;
+
     return credential;
 }
 
 export async function deleteById(id: number) {
-    const credential = credentialRepository.deleteById(id)
+    const credential = await credentialRepository.deleteById(id)
     if(!credential) throw { type: "not found", message: "Credential not found" }
 
     return credential;

@@ -22,8 +22,12 @@ export async function findAll(userId: number) {
         where: {
             userId,
         },
-        select:{
+        select: {
+            id: true,
             title: true,
+            url: true,
+            username: true,
+            password: true
         } 
     })
 }

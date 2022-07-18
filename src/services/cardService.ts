@@ -18,15 +18,16 @@ export async function get(userId: number) {
     return cardRepository.findAll(userId);
 }
 
-export async function getById(id: number) {
-    const card = cardRepository.findById(id);
+export async function getById(id: number, userId:number) {
+    const card = await cardRepository.findById(id);
     if(!card) throw { type: "not found", message: "card not found" }
+    if(card.userId !== userId) throw { type: "unauthorized", message: "Credential belongs to another user" }
 
     return card;
 }
 
 export async function deleteById(id: number) {
-    const card = cardRepository.deleteById(id)
+    const card = await cardRepository.deleteById(id)
     if(!card) throw { type: "not found", message: "card not found" }
 
     return card;

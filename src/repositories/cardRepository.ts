@@ -23,6 +23,7 @@ export async function findAll(userId: number) {
             userId,
         },
         select:{
+            id: true,
             title: true,
         } 
     })

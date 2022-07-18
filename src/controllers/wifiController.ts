@@ -21,10 +21,10 @@ export async function get(req: Request, res: Response) {
 }
 
 export async function getById(req: Request, res: Response) {
-    //const userId: number = res.locals.userToken.userId;
+    const userId: number = res.locals.userToken.userId;
     const id: number = parseInt(req.params.id);
 
-    const wifi = await wifiService.getById(id)
+    const wifi = await wifiService.getById(id, userId);
 
     res.send(wifi);
 }
