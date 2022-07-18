@@ -26,29 +26,31 @@ model Users {
 model Credentials {
   id        Int     @id @default(autoincrement())
   user      Users   @relation(fields: [userId], references: [id])
-  userId    Int     @unique
-  title     String  @unique
+  userId    Int     
+  title     String  
   username  String
   url       String
   password  String
 
+  @@unique([userId, title])
   @@map("credentials")
 }
 
 model SecureNotes {
   id      Int     @id @default(autoincrement())
   user    Users   @relation(fields: [userId], references: [id])
-  userId  Int     @unique
-  title   String  @unique
+  userId  Int     
+  title   String  
   note    String
 
+  @@unique([userId, title])
   @@map("secureNotes")
 }
 
 model Cards {
   id             Int      @id @default(autoincrement())
   user           Users    @relation(fields: [userId], references: [id])
-  userId         Int      @unique
+  userId         Int      
   number         String
   name           String
   cvv            String
@@ -56,33 +58,36 @@ model Cards {
   password       String
   isVirtual      Boolean  @default(false)
   type           String
-  title          String   @unique
+  title          String   
 
+  @@unique([userId, title])
   @@map("cards")
 }
 
 model Wifi {
   id        Int     @id @default(autoincrement())
   user      Users   @relation(fields: [userId], references: [id])
-  userId    Int     @unique
+  userId    Int     
   name      String
   password  String
-  title     String  @unique
+  title     String  
 
+  @@unique([userId, title])
   @@map("wifi")
 }
 
 model Documents {
     id              Int     @id @default(autoincrement())
     user            Users   @relation(fields: [userId], references: [id])
-    userId          Int     @unique
+    userId          Int     
     type            String
     fullName        String
     issueDate       String
     expirationDate  String
-    registryNumber  String  @unique
+    registryNumber  String  
     issuingAgency   String
-    title           String  @unique
+    title           String  
     
+    @@unique([userId, title])
     @@map("documents")
 }
