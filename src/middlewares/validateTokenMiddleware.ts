@@ -8,7 +8,7 @@ import { findById } from "../repositories/userRepository.js";
 export async function validateTokenMiddleware(req: Request, res: Response, next: NextFunction) {
     
     const authorization = req.headers["authorization"];
-    if(!authorization) throw { type: "unauthorized", message: "Invalid token" }
+    if(!authorization) throw { type: "unauthorized", message: "Missing token" }
 
     const token = authorization?.replace('Bearer ', '').trim();
     if(!token) throw { type: "unauthorized", message: "Missing token" }

@@ -1,24 +1,35 @@
 import { prisma } from "../config/db";
-import { Document } from "@prisma/client";
+import { Documents } from "@prisma/client";
 
-export type CreateDocument = Omit<Document, "id">
+export type CreateDocument = Omit<Documents, "id">
 
 export async function create(createDocument: CreateDocument) {
-    return prisma.document.create({
+    return prisma.documents.create({
         data: createDocument,
     });
 }
 
-export async function get(userId: number) {
-    return prisma.document.findMany({
+export async function findByTitle(title: string) {
+    return prisma.documents.findFirst({
+        where:{
+            title,
+        }
+    })
+}
+
+export async function findAll(userId: number) {
+    return prisma.documents.findMany({
         where: {
             userId,
-        }
+        },
+        select:{
+            title: true,
+        } 
     });
 }
 
-export async function getById(id: number) {
-    return prisma.document.findUnique({
+export async function findById(id: number) {
+    return prisma.documents.findUnique({
         where: {
             id,
         }
@@ -26,7 +37,7 @@ export async function getById(id: number) {
 }
 
 export async function deleteById(id: number) {
-    return prisma.document.findUnique({
+    return prisma.documents.findUnique({
         where: {
             id,
         }

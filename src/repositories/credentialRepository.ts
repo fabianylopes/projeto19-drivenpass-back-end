@@ -10,11 +10,22 @@ export async function create(createCredential: CreateCredential) {
 }
 
 export async function findByTitle(title: string) {
-    return prisma.credentials.findUnique({
+    return prisma.credentials.findFirst({
         where: {
             title,
         }
     });
+}
+
+export async function findAll(userId: number) {
+    return prisma.credentials.findMany({
+        where: {
+            userId,
+        },
+        select:{
+            title: true,
+        } 
+    })
 }
 
 export async function findById(id: number) {

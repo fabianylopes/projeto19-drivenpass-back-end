@@ -15,7 +15,7 @@ export async function create(createCard: CreateCard) {
 }
 
 export async function get(userId: number) {
-    return cardRepository.findById(userId);
+    return cardRepository.findAll(userId);
 }
 
 export async function getById(id: number) {

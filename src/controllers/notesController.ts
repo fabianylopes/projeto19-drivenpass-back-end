@@ -10,6 +10,8 @@ export async function create(req: Request, res: Response) {
 
     await notesService.create({...secureNote, userId});
 
+    console.log('Notes=>' + secureNote)
+
     res.sendStatus(201);
 }
 

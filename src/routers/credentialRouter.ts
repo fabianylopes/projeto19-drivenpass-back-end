@@ -8,7 +8,7 @@ import credentialSchema from "../schemas/credentialSchema.js";
 const credentialRouter = Router();
 
 credentialRouter.use(validateTokenMiddleware);
-credentialRouter.post('/credential', validateSchemaMiddleware(credentialSchema) ,credentialController.create);
+credentialRouter.post('/credential', validateSchemaMiddleware(credentialSchema), credentialController.create);
 credentialRouter.get('/credential', credentialController.get);
 credentialRouter.get('/credential/:id', credentialController.getById);
 credentialRouter.delete('/credential/:id',credentialController.deleteById);

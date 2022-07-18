@@ -15,13 +15,13 @@ export async function create(createCredential: CreateCredential) {
 }
 
 export async function get(userId: number) {
-    return credentialRepository.findById(userId);
+    return credentialRepository.findAll(userId);
 }
 
 export async function getById(id: number) {
     const credential = credentialRepository.findById(id);
     if(!credential) throw { type: "not found", message: "Credential not found" }
-
+   
     return credential;
 }
 

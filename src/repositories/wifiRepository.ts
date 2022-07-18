@@ -10,11 +10,22 @@ export async function create(createWifi: CreateWifi) {
 }
 
 export async function findByTitle(title: string) {
-    return prisma.wifi.findUnique({
+    return prisma.wifi.findFirst({
         where: {
             title,
         }
     });
+}
+
+export async function findAll(userId: number) {
+    return prisma.wifi.findMany({
+        where: {
+            userId,
+        },
+        select:{
+            title: true,
+        } 
+    })
 }
 
 export async function findById(id: number) {

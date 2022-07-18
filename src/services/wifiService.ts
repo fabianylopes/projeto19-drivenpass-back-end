@@ -15,7 +15,7 @@ export async function create(createWifi: CreateWifi) {
 }
 
 export async function get(userId: number) {
-    return wifiRepository.findById(userId);
+    return wifiRepository.findAll(userId);
 }
 
 export async function getById(id: number) {

@@ -5,15 +5,19 @@ import * as credentialService from "../services/credentialService.js"
 
 export async function create(req: Request, res: Response) {
     const body: CreateCredential = req.body;
+
+    //const { title, url, username, password } = req.body;
     
     /* const { userToken } = res.locals;
     const userId: number = userToken.userId; */
 
     const { userId } = res.locals.userToken;
 
-    const credentialData: CreateCredential = { ...body, userId };
+    //const credentialData: CreateCredential = { title, url, username, password, userId };
 
-    await credentialService.create(credentialData);
+    console.log('Body=>' + body.title + '----' + userId)
+
+    //await credentialService.create(credentialData);
 
     res.sendStatus(201);
 }

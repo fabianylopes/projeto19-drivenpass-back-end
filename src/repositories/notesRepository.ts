@@ -10,11 +10,22 @@ export async function create(createNote: CreateNote) {
 }
 
 export async function findByTitle(title: string) {
-    return prisma.secureNotes.findUnique({
+    return prisma.secureNotes.findFirst({
         where: {
             title,
         }
     });
+}
+
+export async function findAll(userId: number) {
+    return prisma.secureNotes.findMany({
+        where: {
+            userId,
+        },
+        select:{
+            title: true,
+        } 
+    })
 }
 
 export async function findById(id: number) {

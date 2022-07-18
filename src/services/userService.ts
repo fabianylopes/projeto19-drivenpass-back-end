@@ -8,7 +8,7 @@ import * as userRepository from "../repositories/userRepository.js"
 
 export async function signUp(createUser: CreateUser) {
     const { email, password } = createUser;
-
+    
     const existingUser = await userRepository.findByEmail(email);
     if(existingUser) throw { type: "conflict", message: "Email has already been registered" }
 

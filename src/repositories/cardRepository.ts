@@ -10,11 +10,22 @@ export async function create(createCard: CreateCard) {
 }
 
 export async function findByTitle(title: string) {
-    return prisma.cards.findUnique({
+    return prisma.cards.findFirst({
         where: {
             title,
         }
     });
+}
+
+export async function findAll(userId: number) {
+    return prisma.cards.findMany({
+        where: {
+            userId,
+        },
+        select:{
+            title: true,
+        } 
+    })
 }
 
 export async function findById(id: number) {

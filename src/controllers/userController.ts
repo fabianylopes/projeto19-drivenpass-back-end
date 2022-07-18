@@ -4,7 +4,7 @@ import * as userService from "../services/userService.js"
 
 export async function signUp(req: Request, res: Response){
     const user = req.body;
-    console.log('hello controller');
+
     await userService.signUp(user);
 
     res.sendStatus(201);

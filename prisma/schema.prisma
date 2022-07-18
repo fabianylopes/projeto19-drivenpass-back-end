@@ -10,7 +10,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model Users {
   id          Int     @id @default(autoincrement())
   email       String  @unique
@@ -19,7 +18,7 @@ model Users {
   secureNotes SecureNotes[]
   cards       Cards[]
   wifi        Wifi[]
-  documents   Document[]
+  documents   Documents[]
 
   @@map("users")
 }
@@ -73,7 +72,7 @@ model Wifi {
   @@map("wifi")
 }
 
-model Document {
+model Documents {
     id              Int     @id @default(autoincrement())
     user            Users   @relation(fields: [userId], references: [id])
     userId          Int     @unique
@@ -83,6 +82,7 @@ model Document {
     expirationDate  String
     registryNumber  String  @unique
     issuingAgency   String
-
+    title           String  @unique
+    
     @@map("documents")
 }

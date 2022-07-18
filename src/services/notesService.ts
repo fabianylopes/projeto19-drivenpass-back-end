@@ -12,7 +12,7 @@ export async function create(createNote: CreateNote) {
 }
 
 export async function get(userId: number) {
-    return notesRepository.findById(userId);
+    return notesRepository.findAll(userId);
 }
 
 export async function getById(id: number) {

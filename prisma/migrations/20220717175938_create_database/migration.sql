@@ -12,8 +12,8 @@ CREATE TABLE "credentials" (
     "id" SERIAL NOT NULL,
     "userId" INTEGER NOT NULL,
     "title" TEXT NOT NULL,
-    "url" TEXT NOT NULL,
     "username" TEXT NOT NULL,
+    "url" TEXT NOT NULL,
     "password" TEXT NOT NULL,
 
     CONSTRAINT "credentials_pkey" PRIMARY KEY ("id")
@@ -56,20 +56,52 @@ CREATE TABLE "wifi" (
     CONSTRAINT "wifi_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "documents" (
+    "id" SERIAL NOT NULL,
+    "userId" INTEGER NOT NULL,
+    "type" TEXT NOT NULL,
+    "fullName" TEXT NOT NULL,
+    "issueDate" TEXT NOT NULL,
+    "expirationDate" TEXT NOT NULL,
+    "registryNumber" TEXT NOT NULL,
+    "issuingAgency" TEXT NOT NULL,
+
+    CONSTRAINT "documents_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "credentials_userId_title_key" ON "credentials"("userId", "title");
+CREATE UNIQUE INDEX "credentials_userId_key" ON "credentials"("userId");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "secureNotes_userId_title_key" ON "secureNotes"("userId", "title");
+CREATE UNIQUE INDEX "credentials_title_key" ON "credentials"("title");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "cards_userId_title_key" ON "cards"("userId", "title");
+CREATE UNIQUE INDEX "secureNotes_userId_key" ON "secureNotes"("userId");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "wifi_userId_title_key" ON "wifi"("userId", "title");
+CREATE UNIQUE INDEX "secureNotes_title_key" ON "secureNotes"("title");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "cards_userId_key" ON "cards"("userId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "cards_title_key" ON "cards"("title");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "wifi_userId_key" ON "wifi"("userId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "wifi_title_key" ON "wifi"("title");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "documents_userId_key" ON "documents"("userId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "documents_registryNumber_key" ON "documents"("registryNumber");
 
 -- AddForeignKey
 ALTER TABLE "credentials" ADD CONSTRAINT "credentials_userId_fkey" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -82,3 +114,6 @@ ALTER TABLE "cards" ADD CONSTRAINT "cards_userId_fkey" FOREIGN KEY ("userId") RE
 
 -- AddForeignKey
 ALTER TABLE "wifi" ADD CONSTRAINT "wifi_userId_fkey" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "documents" ADD CONSTRAINT "documents_userId_fkey" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
